@@ -11,7 +11,7 @@ const List = ({ todos }) => {
         if (search === '') {
             return todos;
         }
-        return todos.filter((todo) => todo.content.includes(search));
+        return todos.filter((todo) => todo.content.toLowerCase().includes(search.toLowerCase()));
     };
     const filteredTodos = getFileredData();
 
