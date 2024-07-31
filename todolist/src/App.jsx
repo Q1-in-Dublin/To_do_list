@@ -3,12 +3,16 @@ import { useState, useRef, useEffect } from 'react';
 import Header from './components/Header';
 import Editor from './components/Editor';
 import List from './components/List';
+import { Analytics } from '@vercel/analytics/react';
 
 function App() {
     const [selectedDate, setSelectedDate] = useState(new Date().toDateString());
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState(() => {
+        const savedTodos = localStorage.getItem(selectedDate);
+        return savedTodos ? JSON.parse(savedTodos) : [];
+    });
 
-    const idRef = useRef(0);
+    const idRef = useRef(todos.length > 0 ? todos[todos.length - 1].id + 1 : 0);
 
     useEffect(() => {
         const savedTodos = localStorage.getItem(selectedDate);
@@ -40,7 +44,9 @@ function App() {
     };
 
     const deleteTodo = (targetId) => {
-        setTodos(todos.filter((todo) => todo.id !== targetId));
+        if (window.confirm('Are you sure you want to delete your task?')) {
+            setTodos(todos.filter((todo) => todo.id !== targetId));
+        }
     };
 
     const changeDate = (offset) => {
@@ -54,6 +60,7 @@ function App() {
             <Header selectedDate={selectedDate} changeDate={changeDate} />
             <Editor createTodo={createTodo} />
             <List todos={todos} updateTodo={updateTodo} deleteTodo={deleteTodo} />
+            <Analytics />
         </div>
     );
 }
