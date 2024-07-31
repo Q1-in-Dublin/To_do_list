@@ -1,3 +1,33 @@
 .Header > h1 {
     color: rgb(37, 147, 255);
 }
+.Header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.date-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-navigation h1 {
+    margin: 0 15px;
+}
+
+.date-button {
+    background-color: rgb(37, 147, 255);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-size: 0.7em;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.date-button:hover {
+    background-color: rgb(25, 102, 177);
+}
